@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Metafora Topolino v2</title>
+</head>
+<body>
+    <h2> Simulazione </h2>
+
+    <form>
+        <div class="form-group">
+            <label for="exampleInputEmail1">autista</label>
+            <input type="text" class="form-control" id="autista"  oninput="inizio()" placeholder="SOGGETTO protagonista">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">destinazione</label>
+            <input type="text" class="form-control" id="destinazione" oninput="inizio()" placeholder="OBIETTIVO da raggiungere">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">carburante</label>
+            <input type="text" class="form-control" id="carburante" oninput="inizio()" placeholder="MOTIVAZIONE che spinge verso l'obiettivo">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">luogo</label>
+            <input type="text" class="form-control" id="luogo" oninput="inizio()" placeholder="CONTESTO in cui si svolge">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">strada</label>
+            <input type="text" class="form-control" id="strada" oninput="inizio()" placeholder="COMPORTAMENTO">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">strada ok</label>
+            <input type="text" class="form-control" id="stradaOk" oninput="inizio()" placeholder="COMPORTAMENTO ADEGUATO">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Strada ko</label>
+            <input type="text" class="form-control" id="stradaKo" oninput="inizio()" placeholder="COMPORTAMENTO INADEGUATO">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">cespugli</label>
+            <input type="text" class="form-control" id="cespugli" oninput="inizio()" placeholder="FEEDBACK">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">lupo</label>
+            <input type="text" class="form-control" id="lupo" oninput="inizio()" placeholder="CONSEGUENZE NEGATIVE">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">cestino</label>
+            <input type="text" class="form-control" id="cestino" oninput="inizio()" placeholder="ATTACCAMENTI da lasciare">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Distanza</label>
+            <input type="int" class="form-control" id="distanza" disabled value="3">
+        </div>
+    </form>
+    <center>
+        <div id="immagini"></div>
+        <input type="button" value="INIZIO" id="inizio" onClick="inizio()" class="btn"><br>
+        <br><input type="button" value="  " id="btnSx" onClick="bottoneSx()" class="btn">
+        <input type="button" value="  " id="btnDx" onClick="bottoneDx()" class="btn">
+        <br><h5> N@arrazione </h5>
+        <div class="form-group">
+            <textarea class="form-control" id="myTextarea"  disabled value="" rows="3"></textarea>
+        </div>
+    </center>
+    <script>
+        var cont=1;
+        var contSi=0, contNo=0,autista1, destinazione1, carburante1, luogo1, strada1, stradaOk1, stradako1, cespugli1, lupo1, cestino1 ,Motivato=0, distanza1;
+        var img=document.createElement("img");
+        var src=document.getElementById("immagini");
+    
+        function myFunction() {
+            document.getElementById("myTextarea").value+="\n"+cont;
+            cont++;
+            document.getElementById("myTextarea").scrollTop=document.getElementById("myTextarea").scrollHeight;
+        }
+    
+        
+        img.src=("https://balsanomarco.altervista.org/Balsano-JAVASCRIPT/verifica2/Intro.gif");
+        src.appendChild(img);
+        function inizio(){
+            distanza1=document.getElementById("distanza").value;
+            document.getElementById("myTextarea").value+="Distanza iniziale dall'obbiettivo: "+distanza1+"\n";
+            
+            if(document.getElementById("autista").value=="")
+                autista1=`SOGGETTO`;
+            else
+                autista1=document.getElementById("autista").value;  
+
+            if(document.getElementById("destinazione").value=="")
+                destinazione1=`OBIETTIVO`;
+            else
+                destinazione1=document.getElementById("destinazione").value;
+
+            if(document.getElementById("carburante").value=="")
+                carburante1=`MOTIVAZIONE`;
+            else
+                carburante1=document.getElementById("carburante").value;
+
+            if(document.getElementById("luogo").value=="")
+                luogo1=`CONTESTO`;
+            else
+                luogo1=document.getElementById("luogo").value;
+
+            if(document.getElementById("strada").value=="")
+                strada1=`COMPORTAMENTO`;
+            else
+                strada1=document.getElementById("strada").value;
+
+            if(document.getElementById("stradaOk").value=="")
+                stradaOk1=`COMPORTAMENTO ADEGUATO`;
+            else
+                stradaOk1=document.getElementById("stradaOk").value;
+
+            if(document.getElementById("stradaKo").value=="")
+                stradaKo1=`COMPORTAMENTO INADEGUATO`;
+            else
+                stradaKo1=document.getElementById("stradaKo").value;
+
+            if(document.getElementById("cespugli").value=="")
+                cespugli1=`FEEDBACK`;
+            else
+                cespugli1=document.getElementById("cespugli").value;
+
+            if(document.getElementById("lupo").value=="")
+                lupo1=`CONSEGUENZE NEGATIVE`;
+            else
+                lupo1=document.getElementById("lupo").value;
+
+            if(document.getElementById("cestino").value=="")
+                cestino1=`ATTACCAMENTI`;
+            else
+                cestino1=document.getElementById("cestino").value;
+            
+            document.getElementById("myTextarea").value+=autista1+" vuoi raggiungere "+destinazione1+" ?";
+            document.getElementById("btnSx").value="No";
+            document.getElementById("btnDx").value="Sì";
+        }
+    
+        function bottoneSx(){
+                document.getElementById("myTextarea").scrollTop=document.getElementById("myTextarea").scrollHeight;
+                if(Motivato==0) {
+                    img.src=("https://balsanomarco.altervista.org/Balsano-JAVASCRIPT/verifica2/manifestare1.jpg");
+                    src.appendChild(img);                    
+                    document.getElementById("myTextarea").value+="No"+"\n";
+                    document.getElementById("myTextarea").value+="Mancando  "+carburante1+" per raggiungere "+destinazione1+", "+autista1+" nel contesto "+luogo1+" non raggiungerai l'obbiettivo!"+"\n";
+                    document.getElementById("myTextarea").value+=autista1+" vuoi raggiungere "+destinazione1+" ?";
+
+                }
+                else if(Motivato==1){
+                    img.src=("https://balsanomarco.altervista.org/Balsano-JAVASCRIPT/verifica2/no_sostegno.gif");
+                    src.appendChild(img);                    
+                    document.getElementById("myTextarea").value+="ATTENZIONE "+ autista1+" la scelta "+document.getElementById("btnSx").value+" ti allontana da " + destinazione1+"\n";
+                    document.getElementById("myTextarea").value+=cespugli1+" ti segnalano il pericolo"+"\n";                    
+                    distanza1++;
+                    if(distanza1<8){
+                        document.getElementById("myTextarea").value+="Distanza attuale dall'obiettivo: "+distanza1+"\n";
+                        document.getElementById("myTextarea").value+=autista1+" quale comportamento scegli?"+"\n";
+                    }
+                    else{
+                        document.getElementById("myTextarea").value+=autista1+" :( ti sei allontanato troppo hai scelto la strada chiusa "+document.getElementById("btnSx").value+" e ti sei scontrato con "+lupo1+"\n";
+                        img.src=("https://balsanomarco.altervista.org/Balsano-JAVASCRIPT/verifica2/Topolino_Tontolino.jpg");
+                        img.width=560;
+                        img.height=390;
+                        img.left=500;
+                        img.top=100;
+                        src.appendChild(img);
+                        distanza1=6;
+                    }
+                }
+        }
+    
+        function bottoneDx(){
+            document.getElementById("myTextarea").scrollTop=document.getElementById("myTextarea").scrollHeight;
+            if(Motivato==0){
+                img.src=("https://balsanomarco.altervista.org/Balsano-JAVASCRIPT/verifica2/explorer.jpg");
+                src.appendChild(img);
+                document.getElementById("myTextarea").value+="Sì"+"\n";
+                document.getElementById("myTextarea").value+=autista1+" quale comportamento scegli?"+"\n";
+                document.getElementById("btnSx").value="Scorretto";
+                document.getElementById("btnDx").value="Corretto";
+                Motivato++;
+            }
+            
+            else if(Motivato==1) {
+                img.src=("https://balsanomarco.altervista.org/Balsano-JAVASCRIPT/verifica2/sostegno1.gif");
+                src.appendChild(img);
+                document.getElementById("myTextarea").value+=autista1+" la scelta "+document.getElementById("btnDx").value+" ti avvicini a " + destinazione1+" continua così"+"\n";
+                distanza1--;
+                if(distanza1>0){
+                    document.getElementById("myTextarea").value+="Distanza attuale dall'obbiettivo: "+distanza1+"\n";
+                    document.getElementById("myTextarea").value+=autista1+" quale comportamento scegli?"+"\n";
+                    //src.removeChild(img);
+                }
+                else if(distanza1==0){
+                    img.src=("https://balsanomarco.altervista.org/Balsano-JAVASCRIPT/verifica2/coerenza.gif");
+                    src.appendChild(img);
+                    document.getElementById("myTextarea").value+="Distanza attuale dall'obbiettivo: "+distanza1+"\n";
+                    document.getElementById("myTextarea").value+="Coraggio ci sei quasi fai l'ultimo passo!"+"\n";
+                    src.removeChild(img);
+                }
+                else{                
+                    img.src=("https://balsanomarco.altervista.org/Balsano-JAVASCRIPT/verifica2/Topolino_Volpino.jpg");
+                    img.width=560;
+                    img.height=390;
+                    img.left=500;
+                    img.top=100;
+                    src.appendChild(img);
+                    distanza1=0;
+                    
+                }
+            }
+        }
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

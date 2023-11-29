@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<h1>verifica balsano</h1>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    AGGIUNGI SOCIO
+  </button>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">tipo</label>
+                    <input type="text" class="form-control" id="tipo"  placeholder="tipo">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">marca</label>
+                    <input type="text" class="form-control" id="marca"  placeholder="marca">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">modello</label>
+                    <input type="text" class="form-control" id="modello"  placeholder="modello">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">anno</label>
+                    <input type="text" class="form-control" id="anno"  placeholder="anno">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">prezzo</label>
+                    <input type="text" class="form-control" id="prezzo"  placeholder="prezzo">
+                </div>
+                
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">CHIUDI</button>
+            <button type="button" class="btn btn-primary" onclick="aggiungi_veicolo()">SALVA MODIFICHE</button>
+        </div>
+    </div>
+</div>
+</div>
+
+<body> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    
+<table class="table" id="tab">
+    <thead>
+        <tbody>
+        <tr>                
+            <td> <b> tipo</b></td>
+            <td> <b> marca</b></td>
+            <td> <b> modello</b></td>
+            <td> <b> anno</b></td>
+            <td> <b> prezzo</b></td>                
+        </tr>
+    </tbody>
+    </thead>
+</table>
+
+
+    <script>
+        class Veicolo{
+            constructor(tipo, marca, modello, anno, prezzoNoleggioOrario){
+                this.tipo=tipo;
+                this.marca=marca
+                this.modello=modello;
+                this.anno=anno;
+                this.prezzoNoleggioOrario=prezzoNoleggioOrario;
+            }
+
+            calcolaCostoNoleggio(ore){
+                return this.prezzoNoleggioOrario*this.ore;
+            }
+        }
+
+        class Cliente{
+            constructor(nome, cognome, numeroPatente, noleggiEffettuati, arrayNoleggi){
+                this.nome=nome;
+                this.cognome=cognome;
+                this.numeroPatente=numeroPatente;
+                this.noleggiEffettuati=noleggiEffettuati;
+                this.arrayNoleggi=[];
+            }
+
+            noleggiaVeicolo(veicolo){
+                this.arrayNoleggi.push(veicolo);    
+            }
+
+            restituisciVeicolo(veicolo){
+                let veicoloRimosso;
+                for (let i = 0; i < arrayNoleggi.length; i++) {
+                    const noleggi = arrayNoleggi[i];
+                    if(noleggi.veicolo === veicolo){
+                        veicoloRimosso = arrayNoleggi.splice(i, 1)[0];
+                        console.log(veicoloRimosso)
+                        break;
+                    }
+                }
+            }
+        }
+
+        class CompagniaNoleggio {
+            constructor(inventario, clienti, noleggi){
+                this.inventario=[];
+                this.clienti=[];
+                this.noleggi=[];
+            }
+
+            aggiungiVeicolo(veicolo){
+                this.inventario.push(veicolo);
+            }
+
+            registraCliente(cliente){
+                this.clienti.push(cliente);
+            }
+
+            effettuaNoleggio(cliente, veicolo){
+                this.noleggi.push({cliente, veicolo});
+            }
+
+            restituisciVeicolo(cliente, veicolo){
+                let veicoloRimosso;
+                for (let i = 0; i < this.noleggi.length; i++) {
+                    const noleggio = this.noleggi[i];
+                    if(noleggio.cliente === cliente && noleggio.veicolo === veicolo){
+                        veicoloRimosso = this.noleggi.splice(i, 1)[0];
+                        console.log(veicoloRimosso);
+                        break;
+                    }
+                }
+                if(veicoloRimosso){
+                    console.log("veicolo rimosso");
+                } else {
+                    console.log("veicolo non trovato. Impossibile rimuovere.");
+                }
+            }
+
+            elencoVeicoliNoleggiati(cliente){
+                console.log("elenco veicoli noleggiati:")
+                for (let i = 0; i < this.noleggi.length; i++) {
+                    const noleggio = this.noleggi[i];
+                    console.log(noleggio.cliente, noleggio.veicolo);
+                }
+            }
+        }
+
+        compagniaNoleggio = new CompagniaNoleggio();
+
+        const v1 = new Veicolo("auto", "fiat", "qubo", 2009 , 15)
+        const v2 = new Veicolo("auto", "audi", "a5 sportback", 2022, 30)
+        const v3 = new Veicolo("auto", "opel", "corsa", 2011, 23)
+
+        compagniaNoleggio.aggiungiVeicolo(v1);
+        compagniaNoleggio.aggiungiVeicolo(v2);
+        compagniaNoleggio.aggiungiVeicolo(v3);
+
+        const c1 = new Cliente("marek", "balsanova", "000000", "2")
+        const c2 = new Cliente("matthew", "ranzany", "111111", "6")
+
+        compagniaNoleggio.registraCliente(c1);
+        compagniaNoleggio.registraCliente(c2);
+
+        compagniaNoleggio.effettuaNoleggio(c1,v1);
+        compagniaNoleggio.effettuaNoleggio(c2,v2);
+
+        compagniaNoleggio.restituisciVeicolo(c2, v2);
+
+        compagniaNoleggio.elencoVeicoliNoleggiati(c1);
+
+
+        for(let i = 0; i < compagniaNoleggio.inventario.length; i++){
+            tbody=document.getElementById("tab");
+            let riga = `<tr><td>${compagniaNoleggio.inventario[i].tipo}</td><td>${compagniaNoleggio.inventario[i].marca}</td><td>${compagniaNoleggio.inventario[i].modello}</td><td>${compagniaNoleggio.inventario[i].anno}</td><td>${compagniaNoleggio.inventario[i].prezzoNoleggioOrario}</td>`;
+            tbody.innerHTML+=riga;
+        }
+
+        function aggiungi_veicolo(){
+            let tipo=document.getElementById("tipo").value;
+            document.getElementById("tipo").value = "";
+            let marca=document.getElementById("marca").value;
+            document.getElementById("marca").value = "";
+            let modello=document.getElementById("modello").value;
+            document.getElementById("modello").value = "";
+            let anno=document.getElementById("anno").value;
+            document.getElementById("anno").value = "";
+            let prezzo=document.getElementById("prezzo").value;
+            document.getElementById("prezzo").value = "";
+            //let v4=new veicolo(tipo, marca, modello, anno, prezzo);
+            tbody=document.getElementById("tab");
+            let riga = `<tr><td>${tipo}</td><td>${marca}</td><td>${modello}</td><td>${anno}</td><td>${prezzo}</td><td>${corso1}</td></tr>`;
+            tbody.innerHTML+=riga;
+        }
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
